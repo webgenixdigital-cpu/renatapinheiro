@@ -265,43 +265,45 @@
   .cat-grid{
     width:100%;
     display:flex;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
     justify-content:center;
-    gap:14px;
+    gap:8px;
   }
   .cat-sq{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items:center;
     justify-content:center;
     gap:8px;
-    height:115px;
-    width:138px;
-    flex:0 0 138px;
-    border:1.5px solid var(--line);
-    border-radius:20px;
+    height:58px;
+    flex:1 1 0;
+    min-width:0;
+    max-width:180px;
+    border:2px solid var(--gold);
+    border-radius:14px;
     background:#fff;
     cursor:pointer;
-    padding:10px 8px;
+    padding:6px 10px;
     font-family:'Manrope',sans-serif;
     transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    box-shadow:0 4px 14px -10px rgba(43,42,38,0.35);
+    box-shadow:0 3px 10px -6px rgba(184,134,46,0.5);
   }
-  .cat-sq:hover{ transform:translateY(-2px); box-shadow:0 10px 20px -12px rgba(43,42,38,0.4); }
+  .cat-sq:hover{ transform:translateY(-2px); box-shadow:0 8px 18px -8px rgba(184,134,46,0.65); }
   .cat-sq.active{
     border-color:var(--sage-dark);
-    box-shadow:0 10px 22px -10px rgba(43,42,38,0.5);
+    background:var(--sand);
+    box-shadow:0 6px 16px -6px rgba(92,64,25,0.55);
   }
   .cat-sq-icon{
-    width:42px;
-    height:42px;
+    width:34px;
+    height:34px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     overflow:hidden;
     flex-shrink:0;
-    border:2px solid var(--sand-2);
+    border:2px solid var(--gold);
   }
   .cat-sq-icon img{
     width:100%;
@@ -310,15 +312,15 @@
     display:block;
   }
   .cat-sq-label{
-    font-size:12px;
+    font-size:11.5px;
     font-weight:700;
     color:var(--espresso);
-    text-align:center;
-    line-height:1.2;
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
+    text-align:left;
+    line-height:1.15;
+    white-space:nowrap;
     overflow:hidden;
+    text-overflow:ellipsis;
+    min-width:0;
   }
 
   /* ===== ACCORDION DE CATEGORIAS ===== */
@@ -770,22 +772,23 @@ function toggleCategory(cat){
   renderFilters();
 }
 
-const CATEGORY_PHOTOS = {
-  "Facial": "https://images.unsplash.com/photo-1552693673-1bf958298935?w=140&h=140&fit=crop&auto=format&q=70",
-  "Corporal": "https://images.unsplash.com/photo-1700522924565-9fad1c05469e?w=140&h=140&fit=crop&auto=format&q=70",
-  "Capilar": "https://images.unsplash.com/photo-1560869713-bf165a9cfac1?w=140&h=140&fit=crop&auto=format&q=70"
+const CATEGORY_ICONS = {
+  "Facial": `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="12" r="7.5"/><path d="M9.3 10.2h.01M14.7 10.2h.01"/><path d="M9 15c1.2 1 4.8 1 6 0"/></svg>`,
+  "Corporal": `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="12" cy="4.6" r="2.3"/><path d="M12 7v6M12 13l3.2 6.8M12 13l-3.2 6.8M8 9.5l4-1.4 4 1.4M8.5 12l-2.5 1.2M15.5 12l2.5 1.2"/></svg>`,
+  "Capilar": `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M5.5 4c2.8 2.4 2.8 5.6 0 8"/><path d="M9.5 4c2.8 2.4 2.8 5.6 0 8"/><path d="M13.5 4c2.8 2.4 2.8 5.6 0 8"/><path d="M5.5 12v7M9.5 12v7M13.5 12v7"/></svg>`
 };
 function getCategoryVisual(cat){
-  const photo = CATEGORY_PHOTOS[cat];
-  if (photo) return `<img src="${photo}" alt="${cat}" loading="lazy">`;
+  const icon = CATEGORY_ICONS[cat];
+  if (icon) return icon;
   return `<span style="color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:14px;">${cat.trim().charAt(0).toUpperCase()}</span>`;
 }
 
 function renderFilters(){
   const gridHtml = `<div class="cat-grid">` + categories.map(cat => {
+    const color = getCategoryColor(cat);
     return `
       <button class="cat-sq ${openState[cat] ? 'active' : ''}" data-cat="${cat}">
-        <span class="cat-sq-icon">${getCategoryVisual(cat)}</span>
+        <span class="cat-sq-icon" style="background:${color}">${getCategoryVisual(cat)}</span>
         <span class="cat-sq-label">${cat}</span>
       </button>
     `;
