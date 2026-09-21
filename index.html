@@ -382,19 +382,86 @@
   /* ============================================================
      SERVIÇOS (cards premium)
      ============================================================ */
+  .grid-wrap{
+    position:relative;
+    margin-top:var(--space-lg);
+  }
   .grid{
     display:flex;
     flex-wrap:nowrap;
     overflow-x:auto;
     overflow-y:hidden;
     gap:22px;
-    margin-top:var(--space-lg);
     padding-bottom:10px;
     scroll-snap-type:x proximity;
     -ms-overflow-style:none;
     scrollbar-width:none;
+    scroll-behavior:smooth;
   }
   .grid::-webkit-scrollbar{ display:none; }
+  .grid-wrap::before,
+  .grid-wrap::after{
+    content:"";
+    position:absolute;
+    top:0; bottom:10px;
+    width:64px;
+    pointer-events:none;
+    z-index:2;
+  }
+  .grid-wrap::before{ left:0; background:linear-gradient(90deg, #fbf6e9, rgba(251,246,233,0)); }
+  .grid-wrap::after{ right:0; background:linear-gradient(270deg, #fbf6e9, rgba(251,246,233,0)); }
+  .grid-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:44px; height:44px;
+    border-radius:50%;
+    border:1px solid var(--color-border);
+    background:#fff;
+    color:var(--color-secondary);
+    cursor:pointer;
+    z-index:3;
+    box-shadow:var(--shadow-sm);
+    transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  }
+  .grid-arrow:hover{ box-shadow:var(--shadow-md); background:var(--color-accent); color:#fff; }
+  .grid-arrow.prev{ left:-6px; }
+  .grid-arrow.next{ right:-6px; }
+  .grid-arrow svg{ width:20px; height:20px; }
+  .grid-arrow[disabled]{ opacity:0; pointer-events:none; }
+  @media(max-width:900px){
+    .grid-arrow{ display:none; }
+  }
+  .grid-scrollbar{
+    max-width:220px;
+    height:4px;
+    margin:16px auto 0;
+    background:var(--color-border);
+    border-radius:999px;
+    overflow:hidden;
+  }
+  .grid-scrollbar-thumb{
+    height:100%;
+    width:30%;
+    background:var(--gradient-main);
+    border-radius:999px;
+    transition:transform .15s ease, width .15s ease;
+  }
+  .grid-hint{
+    text-align:center;
+    font-family:'Jost',sans-serif;
+    font-size:12px;
+    font-weight:400;
+    letter-spacing:0.04em;
+    color:var(--color-muted);
+    margin:8px 0 0;
+  }
+  @media(min-width:900px){
+    .grid-hint{ display:none; }
+  }
   .card{
     background:#fff;
     border:1px solid var(--color-border);
@@ -729,7 +796,17 @@
 
 <section id="servicos">
   <div class="container">
-    <div class="grid" id="serviceGrid"></div>
+    <div class="grid-wrap">
+      <button class="grid-arrow prev" id="gridPrev" type="button" aria-label="Ver serviços anteriores">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="grid" id="serviceGrid"></div>
+      <button class="grid-arrow next" id="gridNext" type="button" aria-label="Ver mais serviços">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="grid-scrollbar"><div class="grid-scrollbar-thumb" id="gridScrollThumb"></div></div>
+    <p class="grid-hint">Arraste para o lado para ver mais tratamentos</p>
     <div class="empty-state" id="emptyState">Escolha uma categoria acima para ver os tratamentos e agendar direto pelo <strong>WhatsApp</strong>.</div>
   </div>
 </section>
@@ -932,6 +1009,9 @@ function renderServices(){
         </div>
       </article>`;
   }).join('');
+
+  grid.scrollLeft = 0;
+  if (typeof updateGridScrollUI === 'function') setTimeout(updateGridScrollUI, 50);
 }
 
 /* init */
@@ -945,6 +1025,42 @@ document.getElementById('heroCta').href = genericMsg;
 document.getElementById('headerCta').href = genericMsg;
 document.getElementById('footerWhatsapp').href = genericMsg;
 document.getElementById('teamWhatsapp').href = buildWhatsappLink(`Olá! Gostaria de falar com a equipe da ${catalog.brand.name}.`);
+
+/* navegação por arraste horizontal — setas + barra de progresso */
+const serviceGridEl = document.getElementById('serviceGrid');
+const gridPrevBtn = document.getElementById('gridPrev');
+const gridNextBtn = document.getElementById('gridNext');
+const gridScrollThumb = document.getElementById('gridScrollThumb');
+
+function updateGridScrollUI(){
+  const maxScroll = serviceGridEl.scrollWidth - serviceGridEl.clientWidth;
+  if (maxScroll <= 4){
+    gridPrevBtn.disabled = true;
+    gridNextBtn.disabled = true;
+    gridScrollThumb.style.width = '100%';
+    gridScrollThumb.style.transform = 'translateX(0)';
+    return;
+  }
+  const ratio = serviceGridEl.clientWidth / serviceGridEl.scrollWidth;
+  const progress = serviceGridEl.scrollLeft / maxScroll;
+  const trackWidth = 220;
+  const thumbWidth = Math.max(ratio * trackWidth, 28);
+  const thumbTravel = trackWidth - thumbWidth;
+  gridScrollThumb.style.width = thumbWidth + 'px';
+  gridScrollThumb.style.transform = `translateX(${progress * thumbTravel}px)`;
+  gridPrevBtn.disabled = serviceGridEl.scrollLeft <= 4;
+  gridNextBtn.disabled = serviceGridEl.scrollLeft >= maxScroll - 4;
+}
+
+gridPrevBtn.addEventListener('click', () => {
+  serviceGridEl.scrollBy({ left: -serviceGridEl.clientWidth * 0.85, behavior: 'smooth' });
+});
+gridNextBtn.addEventListener('click', () => {
+  serviceGridEl.scrollBy({ left: serviceGridEl.clientWidth * 0.85, behavior: 'smooth' });
+});
+serviceGridEl.addEventListener('scroll', updateGridScrollUI);
+window.addEventListener('resize', updateGridScrollUI);
+setTimeout(updateGridScrollUI, 150);
 
 /* microinteração: fade-in ao rolar (progressive enhancement) */
 const revealEls = document.querySelectorAll('.reveal');
