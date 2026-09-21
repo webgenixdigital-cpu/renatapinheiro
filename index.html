@@ -241,12 +241,12 @@
     position:relative;
     border-radius:var(--radius-xl);
     overflow:hidden;
-    aspect-ratio:4/5;
+    aspect-ratio:4/3;
     box-shadow:var(--shadow-md);
   }
   .hero-media img{
     width:100%; height:100%; object-fit:cover;
-    object-position:center 15%;
+    object-position:center 22%;
   }
   .hero-media::after{
     content:"";
@@ -267,109 +267,96 @@
     position:absolute;
     left:0; right:0; bottom:0;
     z-index:2;
-    padding:46px 22px 26px;
+    padding:36px 14px 22px;
     text-align:center;
     background:linear-gradient(180deg, rgba(28,22,14,0) 0%, rgba(28,22,14,0.55) 55%, rgba(28,22,14,0.82) 100%);
   }
   .hero-signature{
     font-family:'Shadows Into Light', cursive;
-    font-size:25px;
+    font-size:23px;
     line-height:1;
     color:#fff;
     margin:0 0 6px;
     text-shadow:0 2px 10px rgba(0,0,0,0.25);
+    white-space:nowrap;
   }
   .hero-catalog-title{
     font-family:'Fraunces', serif;
     font-style:italic;
     font-weight:600;
-    font-size:clamp(19px, 2.4vw, 25px);
-    letter-spacing:0.06em;
+    font-size:clamp(15px, 2.4vw, 25px);
+    letter-spacing:0.04em;
     text-transform:uppercase;
     color:#fff;
     margin:0;
+    white-space:nowrap;
   }
   .hero-catalog-title::before,
   .hero-catalog-title::after{
     content:"";
     display:inline-block;
-    width:26px;
+    width:20px;
     height:1px;
     background:var(--color-accent);
     vertical-align:middle;
-    margin:0 12px 3px;
+    margin:0 8px 3px;
+  }
+  @media(max-width:420px){
+    .hero-catalog-title::before,
+    .hero-catalog-title::after{ width:10px; margin:0 5px 3px; }
   }
   @media(max-width:900px){
     .hero-inner{ grid-template-columns:1fr; }
     .hero p{ max-width:none; }
-    .hero-media{ aspect-ratio:4/5; order:-1; margin-bottom:24px; }
+    .hero-media{ aspect-ratio:4/3; order:-1; margin-bottom:24px; }
   }
 
   /* ============================================================
      CATEGORIAS (filtros visuais)
      ============================================================ */
-  #categorias{ padding-top:var(--space-lg); padding-bottom:8px; }
-  .cat-intro{
-    text-align:center;
-    font-size:15.5px;
-    font-weight:600;
-    color:var(--color-secondary);
-    max-width:460px;
-    margin:12px auto 28px;
-    line-height:1.55;
-  }
+  #categorias{ padding-top:var(--space-md); padding-bottom:var(--space-md); }
+  #servicos{ padding-top:var(--space-md); }
   .cat-scroll{
     display:flex;
-    gap:14px;
+    gap:16px;
     overflow-x:auto;
     overflow-y:hidden;
-    padding-bottom:6px;
+    padding:6px;
     scroll-snap-type:x proximity;
     -ms-overflow-style:none;
     scrollbar-width:none;
-    justify-content:flex-start;
-    flex-wrap:nowrap;
+    justify-content:center;
+    flex-wrap:wrap;
   }
   .cat-scroll::-webkit-scrollbar{ display:none; }
   .cat-card{
     scroll-snap-align:start;
     flex:0 0 auto;
-    width:150px;
     display:flex;
-    flex-direction:column;
     align-items:center;
-    gap:10px;
-    padding:20px 12px 16px;
-    border:1px solid var(--color-border);
-    border-radius:var(--radius-lg);
+    justify-content:center;
+    padding:16px 32px;
+    border:none;
+    border-radius:999px;
     background:#fff;
+    box-shadow:0 10px 24px -12px rgba(43,36,25,0.28);
     cursor:pointer;
-    transition:border-color .18s ease, transform .18s ease, box-shadow .18s ease;
-  }
-  .cat-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-sm); }
-  .cat-card.active{
-    border-color:transparent;
-    background:linear-gradient(#fff,#fff) padding-box, var(--gradient-main) border-box;
-    border:2px solid transparent;
-    box-shadow:var(--shadow-sm);
-  }
-  .cat-icon{
-    width:60px; height:60px;
-    border-radius:50%;
-    background:var(--color-surface);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-    transition:transform .18s ease;
-  }
-  .cat-card.active .cat-icon{ background:var(--color-background); box-shadow:inset 0 0 0 2px var(--color-accent); }
-  .cat-card:hover .cat-icon{ transform:scale(1.06); }
-  .cat-icon img{ width:100%; height:100%; object-fit:cover; }
-  .cat-label{
-    font-size:13px;
-    font-weight:700;
-    text-align:center;
+    font-family:'Manrope',sans-serif;
+    font-size:14.5px;
+    font-weight:800;
+    letter-spacing:0.02em;
     color:var(--color-secondary);
-    line-height:1.25;
+    text-transform:uppercase;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  }
+  .cat-card:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -12px rgba(43,36,25,0.38); }
+  .cat-card.active{
+    background:var(--gradient-main);
+    color:#fff;
+    box-shadow:0 14px 28px -10px rgba(184,134,46,0.55);
+  }
+  .cat-label{
+    line-height:1;
   }
 
   /* ============================================================
@@ -389,8 +376,8 @@
   }
   .grid::-webkit-scrollbar{ display:none; }
   .card{
-    background:#fff;
-    border:1px solid var(--color-border);
+    background:linear-gradient(180deg, rgba(201,162,39,0.14) 0%, rgba(201,162,39,0.03) 38%, #fff 60%);
+    border:1px solid var(--color-accent);
     border-radius:var(--radius-lg);
     overflow:hidden;
     display:flex;
@@ -398,6 +385,7 @@
     flex:0 0 270px;
     width:270px;
     scroll-snap-align:start;
+    box-shadow:0 4px 16px -10px rgba(201,162,39,0.5);
     transition:transform .22s ease, box-shadow .22s ease;
   }
   .card:hover{
@@ -513,39 +501,87 @@
   /* ============================================================
      BENEFÍCIOS
      ============================================================ */
-  .benefits-section{ background:var(--color-surface); }
-  .benefits-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-    gap:26px;
-    margin-top:var(--space-lg);
+  .faq-section{ background:var(--color-surface); }
+  .faq-list{
+    max-width:720px;
+    margin:var(--space-lg) auto 0;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
   }
-  .benefit{
+  .faq-item{
+    background:#fff;
+    border:1px solid var(--color-border);
+    border-radius:var(--radius-md);
+    padding:18px 22px;
+  }
+  .faq-item summary{
+    cursor:pointer;
+    list-style:none;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--color-secondary);
+    padding-right:28px;
+    position:relative;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:"+";
+    position:absolute;
+    right:0; top:0;
+    font-size:20px;
+    font-weight:700;
+    color:var(--color-primary);
+    transition:transform .2s ease;
+  }
+  .faq-item[open] summary::after{ content:"\2212"; }
+  .faq-item p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--color-muted);
+    margin:14px 0 0;
+  }
+
+  /* ============================================================
+     BOTÕES SOCIAIS (Instagram / WhatsApp)
+     ============================================================ */
+  .social-cta-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:var(--space-md);
+    max-width:720px;
+    margin:0 auto;
+  }
+  .social-cta{
+    display:flex;
+    align-items:center;
+    gap:16px;
     background:#fff;
     border:1px solid var(--color-border);
     border-radius:var(--radius-lg);
-    padding:26px 24px;
-    text-align:center;
+    padding:22px 24px;
+    text-decoration:none;
+    box-shadow:var(--shadow-sm);
+    transition:transform .18s ease, box-shadow .18s ease;
   }
-  .benefit-icon{
-    width:46px; height:46px;
-    border-radius:12px;
-    background:var(--gradient-main);
+  .social-cta:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .social-cta-icon{
+    width:48px; height:48px;
+    border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    margin:0 auto 16px;
+    flex-shrink:0;
+    color:#fff;
   }
-  .benefit-icon svg{ width:22px; height:22px; stroke:#fff; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-  .benefit h3{
-    font-size:16.5px;
-    font-weight:800;
+  .social-cta-icon svg{ width:24px; height:24px; }
+  .social-cta-icon.instagram{ background:linear-gradient(135deg, #f9ce34, #ee2a7b 55%, #6228d7); }
+  .social-cta-icon.whatsapp{ background:#25D366; }
+  .social-cta-text{
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    line-height:1.35;
     color:var(--color-secondary);
-    margin:0 0 8px;
-  }
-  .benefit p{
-    font-size:14px;
-    line-height:1.6;
-    color:var(--color-muted);
-    margin:0;
   }
 
   /* ============================================================
@@ -593,7 +629,8 @@
     text-align:center;
   }
   .site-footer-logo{
-    height:26px; width:auto; margin-bottom:10px;
+    display:block;
+    height:26px; width:auto; margin:0 auto 10px;
     filter:grayscale(1) brightness(1.8) opacity(0.55);
   }
   .site-footer-social{
@@ -648,7 +685,7 @@
     </a>
     <nav class="header-nav">
       <a href="#servicos">Tratamentos</a>
-      <a href="#beneficios">Diferenciais</a>
+      <a href="#beneficios">Dúvidas</a>
       <a href="#contato">Contato</a>
     </nav>
     <a class="header-cta" id="headerCta" href="#" target="_blank" rel="noopener">Agendar</a>
@@ -679,12 +716,7 @@
 
 <section id="categorias">
   <div class="container">
-    <div class="section-head reveal">
-      <div class="eyebrow">Explore</div>
-      <h2 class="section-title">Tratamentos</h2>
-    </div>
-    <p class="cat-intro">Acesse nossos serviços — escolha uma das categorias abaixo para ver os tratamentos disponíveis e solicitar seu agendamento pelo WhatsApp.</p>
-    <div class="cat-scroll" id="categoryNav"></div>
+    <div class="cat-scroll reveal" id="categoryNav"></div>
   </div>
 </section>
 
@@ -695,36 +727,49 @@
   </div>
 </section>
 
-<section class="benefits-section" id="beneficios">
+<section class="faq-section" id="beneficios">
   <div class="container">
     <div class="section-head reveal">
-      <div class="eyebrow">Por que escolher</div>
-      <h2 class="section-title">Nossos diferenciais</h2>
+      <div class="eyebrow">Dúvidas frequentes</div>
+      <h2 class="section-title">Perguntas comuns</h2>
     </div>
-    <div class="benefits-grid">
-      <div class="benefit reveal">
-        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M4.2 4.2l2.9 2.9M16.9 16.9l2.9 2.9M3 12h4M17 12h4M4.2 19.8l2.9-2.9M16.9 7.1l2.9-2.9"/></svg></div>
-        <h3>Tecnologia e técnica</h3>
-        <p>Equipamentos e protocolos atualizados, unindo estética e saúde integrativa em cada atendimento.</p>
-      </div>
-      <div class="benefit reveal">
-        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg></div>
-        <h3>Atendimento próximo</h3>
-        <p>Um espaço pensado para o seu conforto, com acompanhamento próximo em cada etapa do tratamento.</p>
-      </div>
-      <div class="benefit reveal">
-        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/></svg></div>
-        <h3>Cuidado personalizado</h3>
-        <p>Cada tratamento é pensado de acordo com a necessidade e o objetivo de cada cliente.</p>
-      </div>
+    <div class="faq-list">
+      <details class="faq-item reveal" open>
+        <summary>Preciso passar por uma avaliação antes de agendar um tratamento?</summary>
+        <p>Sim. A primeira consulta é sempre uma avaliação individual, para entender seu histórico e objetivos e indicar o protocolo mais adequado para você.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Os tratamentos estéticos doem?</summary>
+        <p>A maioria dos procedimentos causa apenas um leve desconforto, bem tolerado pela maioria das clientes. Quando necessário, usamos anestésicos tópicos para garantir o seu conforto durante a sessão.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Quantas sessões são necessárias para ver resultado?</summary>
+        <p>Varia de acordo com o tratamento e o objetivo de cada pessoa. Alguns procedimentos já mostram resultado após a primeira sessão, enquanto outros fazem parte de um protocolo de várias sessões — isso é explicado em detalhes na sua avaliação.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Vocês atendem todos os tipos de pele e cabelo?</summary>
+        <p>Sim. Cada protocolo é adaptado ao seu tipo de pele, couro cabeludo e necessidade específica, sempre com segurança e cuidado individualizado.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Como faço para agendar minha consulta?</summary>
+        <p>É simples: escolha a categoria de tratamento que deseja no catálogo acima e clique em "Agendar" — você será direcionada direto para o WhatsApp da clínica.</p>
+      </details>
     </div>
   </div>
 </section>
 
 <section id="contato">
-  <div class="cta-section reveal">
-    <h2>Cuidar de você<br>é a minha missão.</h2>
-    <a class="btn-gradient" id="ctaWhatsapp" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  <div class="container">
+    <div class="social-cta-grid">
+      <a class="social-cta reveal" href="https://www.instagram.com/renatapinheiro.estetica/" target="_blank" rel="noopener">
+        <span class="social-cta-icon instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></span>
+        <span class="social-cta-text">Siga nosso perfil e acompanhe nosso trabalho</span>
+      </a>
+      <a class="social-cta reveal" id="teamWhatsapp" href="#" target="_blank" rel="noopener">
+        <span class="social-cta-icon whatsapp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.42.687 4.68 1.878 6.6L3 29l7.086-2.336A12.44 12.44 0 0 0 16.001 28C22.906 28 28.5 22.404 28.5 15.5S22.906 3 16.001 3Zm7.267 17.67c-.31.87-1.532 1.6-2.51 1.81-.664.14-1.53.25-4.45-.955-3.735-1.545-6.14-5.32-6.328-5.567-.18-.246-1.51-2.01-1.51-3.834 0-1.825.955-2.722 1.294-3.096.34-.374.74-.468.986-.468.246 0 .493.002.708.013.227.012.532-.086.832.634.31.744 1.056 2.568 1.148 2.755.093.187.155.407.03.653-.123.246-.185.4-.37.617-.185.216-.39.483-.556.65-.185.185-.378.386-.163.76.216.373.96 1.585 2.062 2.567 1.417 1.263 2.612 1.654 2.986 1.84.373.185.59.155.808-.093.216-.247.925-1.08 1.172-1.45.247-.373.494-.31.833-.185.34.124 2.155 1.016 2.525 1.2.37.186.617.278.708.433.093.155.093.897-.216 1.767Z"/></svg></span>
+        <span class="social-cta-text">Fale com nossa equipe</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -834,8 +879,7 @@ function renderCategoryNav(){
   const nav = document.getElementById('categoryNav');
   const cards = catalog.categories.map(c => `
     <div class="cat-card ${activeFilter === c.id ? 'active' : ''}" data-cat="${c.id}">
-      <div class="cat-icon">${c.icon}</div>
-      <div class="cat-label">${c.label}</div>
+      <span class="cat-label">${c.label}</span>
     </div>`).join('');
   nav.innerHTML = cards;
 
@@ -853,15 +897,9 @@ function renderServices(){
   const grid = document.getElementById('serviceGrid');
   const emptyState = document.getElementById('emptyState');
 
-  if (!activeFilter){
-    grid.innerHTML = '';
-    grid.style.display = 'none';
-    emptyState.style.display = 'block';
-    return;
-  }
-
-  const list = catalog.services.filter(s => s.category === activeFilter);
-  const cat = categoryData(activeFilter);
+  const list = activeFilter
+    ? catalog.services.filter(s => s.category === activeFilter)
+    : catalog.services;
 
   grid.style.display = 'flex';
   emptyState.style.display = list.length === 0 ? 'block' : 'none';
@@ -869,6 +907,7 @@ function renderServices(){
   grid.innerHTML = list.map(s => {
     const label = s.priceLabel === undefined ? "a partir de" : s.priceLabel;
     const isSpecial = label === "";
+    const cat = categoryData(s.category);
     return `
       <article class="card">
         <div class="card-media" style="background:${cat.color}"><img src="${s.img}" alt="${s.name}" loading="lazy"></div>
@@ -898,8 +937,8 @@ const genericMsg = buildWhatsappLink(`Olá! Vim pelo catálogo da ${catalog.bran
 document.getElementById('whatsappFloat').href = genericMsg;
 document.getElementById('heroCta').href = genericMsg;
 document.getElementById('headerCta').href = genericMsg;
-document.getElementById('ctaWhatsapp').href = genericMsg;
 document.getElementById('footerWhatsapp').href = genericMsg;
+document.getElementById('teamWhatsapp').href = buildWhatsappLink(`Olá! Gostaria de falar com a equipe da ${catalog.brand.name}.`);
 
 /* microinteração: fade-in ao rolar (progressive enhancement) */
 const revealEls = document.querySelectorAll('.reveal');
