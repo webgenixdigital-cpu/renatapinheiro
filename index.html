@@ -12,7 +12,7 @@
 <meta name="description" content="Catálogo digital de tratamentos estéticos e de saúde integrativa — agende pelo WhatsApp em poucos toques.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600;700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
      DESIGN TOKENS — RENATA PINHEIRO (paleta dourada/terracota)
@@ -51,7 +51,7 @@
     margin:0;
     background:var(--color-background);
     color:var(--color-text);
-    font-family:'Manrope', sans-serif;
+    font-family:'Jost', sans-serif;
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;display:block;}
@@ -60,7 +60,7 @@
   .container{max-width:1120px; margin:0 auto;}
   .eyebrow{
     font-size:13px;
-    font-weight:700;
+    font-weight:600;
     letter-spacing:.14em;
     text-transform:uppercase;
     color:var(--color-primary);
@@ -79,7 +79,7 @@
   .section-title{
     font-family:'Fraunces', serif;
     font-size:clamp(26px, 3.4vw, 38px);
-    font-weight:700;
+    font-weight:600;
     font-style:italic;
     letter-spacing:-0.01em;
     line-height:1.12;
@@ -126,7 +126,7 @@
     display:flex;
     align-items:center;
     gap:10px;
-    font-weight:800;
+    font-weight:600;
     font-size:16px;
     color:var(--color-secondary);
     text-decoration:none;
@@ -143,7 +143,7 @@
   .brand-mark img{ width:100%; height:100%; object-fit:cover; }
   .brand-text small{
     display:block;
-    font-family:'Manrope',sans-serif;
+    font-family:'Jost',sans-serif;
     font-weight:600;
     font-size:10.5px;
     letter-spacing:.03em;
@@ -208,7 +208,7 @@
   .hero h1{
     font-family:'Fraunces', serif;
     font-size:clamp(30px, 4.6vw, 50px);
-    font-weight:700;
+    font-weight:600;
     font-style:italic;
     line-height:1.12;
     letter-spacing:-0.01em;
@@ -315,10 +315,25 @@
      CATEGORIAS (filtros visuais)
      ============================================================ */
   #categorias{ padding-top:var(--space-md); padding-bottom:var(--space-md); }
-  #servicos{ padding-top:var(--space-md); }
+  #servicos{
+    padding-top:var(--space-lg);
+    background:linear-gradient(180deg, rgba(201,162,39,0.12) 0%, rgba(201,162,39,0.05) 55%, rgba(201,162,39,0) 100%);
+    border-top:1px solid rgba(201,162,39,0.35);
+    border-bottom:1px solid rgba(201,162,39,0.35);
+  }
+  .cat-label-title{
+    text-align:center;
+    font-family:'Jost',sans-serif;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--color-muted);
+    margin:0 0 14px;
+  }
   .cat-scroll{
     display:flex;
-    gap:16px;
+    gap:12px;
     overflow-x:auto;
     overflow-y:hidden;
     padding:6px;
@@ -326,34 +341,39 @@
     -ms-overflow-style:none;
     scrollbar-width:none;
     justify-content:center;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
   }
   .cat-scroll::-webkit-scrollbar{ display:none; }
   .cat-card{
     scroll-snap-align:start;
-    flex:0 0 auto;
+    flex:1 1 0;
+    min-width:0;
+    max-width:220px;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:16px 32px;
+    padding:15px 18px;
     border:none;
-    border-radius:999px;
-    background:#fff;
-    box-shadow:0 10px 24px -12px rgba(43,36,25,0.28);
+    border-radius:10px;
+    background:var(--color-accent);
+    box-shadow:0 8px 20px -10px rgba(201,162,39,0.6);
     cursor:pointer;
-    font-family:'Manrope',sans-serif;
-    font-size:14.5px;
-    font-weight:800;
-    letter-spacing:0.02em;
-    color:var(--color-secondary);
+    font-family:'Jost',sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    color:#fff;
     text-transform:uppercase;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
     transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
   }
-  .cat-card:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -12px rgba(43,36,25,0.38); }
+  .cat-card:hover{ transform:translateY(-2px); box-shadow:0 12px 24px -10px rgba(201,162,39,0.7); }
   .cat-card.active{
-    background:var(--gradient-main);
+    background:var(--color-secondary);
     color:#fff;
-    box-shadow:0 14px 28px -10px rgba(184,134,46,0.55);
+    box-shadow:0 12px 24px -10px rgba(43,36,25,0.55);
   }
   .cat-label{
     line-height:1;
@@ -376,8 +396,8 @@
   }
   .grid::-webkit-scrollbar{ display:none; }
   .card{
-    background:linear-gradient(180deg, rgba(201,162,39,0.14) 0%, rgba(201,162,39,0.03) 38%, #fff 60%);
-    border:1px solid var(--color-accent);
+    background:#fff;
+    border:1px solid var(--color-border);
     border-radius:var(--radius-lg);
     overflow:hidden;
     display:flex;
@@ -385,7 +405,7 @@
     flex:0 0 270px;
     width:270px;
     scroll-snap-align:start;
-    box-shadow:0 4px 16px -10px rgba(201,162,39,0.5);
+    box-shadow:var(--shadow-sm);
     transition:transform .22s ease, box-shadow .22s ease;
   }
   .card:hover{
@@ -420,7 +440,7 @@
   }
   .card-cat{
     font-size:11.5px;
-    font-weight:700;
+    font-weight:600;
     text-transform:uppercase;
     letter-spacing:.08em;
     color:var(--color-primary);
@@ -457,7 +477,7 @@
   }
   .price-block .from{
     font-size:10px;
-    font-weight:700;
+    font-weight:500;
     text-transform:uppercase;
     letter-spacing:.06em;
     color:var(--color-muted);
@@ -547,42 +567,28 @@
      BOTÕES SOCIAIS (Instagram / WhatsApp)
      ============================================================ */
   .social-cta-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-    gap:var(--space-md);
-    max-width:720px;
-    margin:0 auto;
+    display:flex;
+    flex-wrap:nowrap;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
   }
   .social-cta{
     display:flex;
     align-items:center;
-    gap:16px;
-    background:#fff;
-    border:1px solid var(--color-border);
-    border-radius:var(--radius-lg);
-    padding:22px 24px;
+    justify-content:center;
+    width:58px; height:58px;
+    flex:0 0 auto;
+    border-radius:50%;
     text-decoration:none;
+    color:#fff;
     box-shadow:var(--shadow-sm);
     transition:transform .18s ease, box-shadow .18s ease;
   }
   .social-cta:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
-  .social-cta-icon{
-    width:48px; height:48px;
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    color:#fff;
-  }
-  .social-cta-icon svg{ width:24px; height:24px; }
-  .social-cta-icon.instagram{ background:linear-gradient(135deg, #f9ce34, #ee2a7b 55%, #6228d7); }
-  .social-cta-icon.whatsapp{ background:#25D366; }
-  .social-cta-text{
-    font-family:'Manrope',sans-serif;
-    font-weight:700;
-    font-size:14.5px;
-    line-height:1.35;
-    color:var(--color-secondary);
-  }
+  .social-cta svg{ width:24px; height:24px; }
+  .social-cta.instagram{ background:linear-gradient(135deg, #f9ce34, #ee2a7b 55%, #6228d7); }
+  .social-cta.whatsapp{ background:#25D366; }
 
   /* ============================================================
      CTA
@@ -716,6 +722,7 @@
 
 <section id="categorias">
   <div class="container">
+    <p class="cat-label-title reveal">Categorias</p>
     <div class="cat-scroll reveal" id="categoryNav"></div>
   </div>
 </section>
@@ -760,14 +767,13 @@
 
 <section id="contato">
   <div class="container">
+    <p class="cat-label-title reveal">Acompanhe nossas redes</p>
     <div class="social-cta-grid">
-      <a class="social-cta reveal" href="https://www.instagram.com/renatapinheiro.estetica/" target="_blank" rel="noopener">
-        <span class="social-cta-icon instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg></span>
-        <span class="social-cta-text">Siga nosso perfil e acompanhe nosso trabalho</span>
+      <a class="social-cta instagram reveal" href="https://www.instagram.com/renatapinheiro.estetica/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a class="social-cta reveal" id="teamWhatsapp" href="#" target="_blank" rel="noopener">
-        <span class="social-cta-icon whatsapp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.42.687 4.68 1.878 6.6L3 29l7.086-2.336A12.44 12.44 0 0 0 16.001 28C22.906 28 28.5 22.404 28.5 15.5S22.906 3 16.001 3Zm7.267 17.67c-.31.87-1.532 1.6-2.51 1.81-.664.14-1.53.25-4.45-.955-3.735-1.545-6.14-5.32-6.328-5.567-.18-.246-1.51-2.01-1.51-3.834 0-1.825.955-2.722 1.294-3.096.34-.374.74-.468.986-.468.246 0 .493.002.708.013.227.012.532-.086.832.634.31.744 1.056 2.568 1.148 2.755.093.187.155.407.03.653-.123.246-.185.4-.37.617-.185.216-.39.483-.556.65-.185.185-.378.386-.163.76.216.373.96 1.585 2.062 2.567 1.417 1.263 2.612 1.654 2.986 1.84.373.185.59.155.808-.093.216-.247.925-1.08 1.172-1.45.247-.373.494-.31.833-.185.34.124 2.155 1.016 2.525 1.2.37.186.617.278.708.433.093.155.093.897-.216 1.767Z"/></svg></span>
-        <span class="social-cta-text">Fale com nossa equipe</span>
+      <a class="social-cta whatsapp reveal" id="teamWhatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.096 3 3.5 8.596 3.5 15.5c0 2.42.687 4.68 1.878 6.6L3 29l7.086-2.336A12.44 12.44 0 0 0 16.001 28C22.906 28 28.5 22.404 28.5 15.5S22.906 3 16.001 3Zm7.267 17.67c-.31.87-1.532 1.6-2.51 1.81-.664.14-1.53.25-4.45-.955-3.735-1.545-6.14-5.32-6.328-5.567-.18-.246-1.51-2.01-1.51-3.834 0-1.825.955-2.722 1.294-3.096.34-.374.74-.468.986-.468.246 0 .493.002.708.013.227.012.532-.086.832.634.31.744 1.056 2.568 1.148 2.755.093.187.155.407.03.653-.123.246-.185.4-.37.617-.185.216-.39.483-.556.65-.185.185-.378.386-.163.76.216.373.96 1.585 2.062 2.567 1.417 1.263 2.612 1.654 2.986 1.84.373.185.59.155.808-.093.216-.247.925-1.08 1.172-1.45.247-.373.494-.31.833-.185.34.124 2.155 1.016 2.525 1.2.37.186.617.278.708.433.093.155.093.897-.216 1.767Z"/></svg>
       </a>
     </div>
   </div>
