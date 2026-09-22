@@ -458,7 +458,7 @@
   .grid-arrow.prev{ left:-6px; }
   .grid-arrow.next{ right:-6px; }
   .grid-arrow svg{ width:20px; height:20px; }
-  .grid-arrow[disabled]{ opacity:0; pointer-events:none; }
+  .grid-arrow[disabled]{ opacity:0.35; pointer-events:none; }
   @media(max-width:900px){
     .grid-arrow{ display:none; }
   }
@@ -499,6 +499,7 @@
     flex-direction:column;
     flex:0 0 253px;
     width:253px;
+    min-height:305px;
     scroll-snap-align:start;
     box-shadow:var(--shadow-sm);
     transition:transform .22s ease, box-shadow .22s ease;
