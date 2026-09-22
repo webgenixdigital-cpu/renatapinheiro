@@ -356,11 +356,14 @@
     border-radius:50%;
     overflow:hidden;
     flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     border:3px solid var(--color-accent);
     box-shadow:0 8px 18px -10px rgba(201,162,39,0.6);
     transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
-  .cat-icon img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .cat-icon svg{ width:30px; height:30px; }
   .cat-card:hover .cat-icon{ transform:translateY(-2px); box-shadow:0 12px 22px -10px rgba(201,162,39,0.7); }
   .cat-card.active .cat-icon{
     border-color:var(--color-secondary);
@@ -494,8 +497,8 @@
     overflow:hidden;
     display:flex;
     flex-direction:column;
-    flex:0 0 220px;
-    width:220px;
+    flex:0 0 253px;
+    width:253px;
     scroll-snap-align:start;
     box-shadow:var(--shadow-sm);
     transition:transform .22s ease, box-shadow .22s ease;
@@ -879,11 +882,11 @@ const catalog = {
   business: { whatsapp: "5535991560062" },
   categories: [
     { id:"Facial", label:"Tratamentos Faciais", color:"#C9A227",
-      icon:`<img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=200&h=200&fit=crop&auto=format&q=70" alt="Tratamentos Faciais" loading="lazy">` },
+      icon:`<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M9.3 10.2h.01M14.7 10.2h.01"/><path d="M9 15c1.2 1 4.8 1 6 0"/></svg>` },
     { id:"Corporal", label:"Tratamentos Corporais", color:"#B8862E",
-      icon:`<img src="https://images.unsplash.com/photo-1700522924565-9fad1c05469e?w=200&h=200&fit=crop&auto=format&q=70" alt="Tratamentos Corporais" loading="lazy">` },
+      icon:`<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.6" r="2.3"/><path d="M12 7v6M12 13l3.2 6.8M12 13l-3.2 6.8M8 9.5l4-1.4 4 1.4M8.5 12l-2.5 1.2M15.5 12l2.5 1.2"/></svg>` },
     { id:"Capilar", label:"Tratamentos Capilares", color:"#5C4019",
-      icon:`<img src="https://images.unsplash.com/photo-1785860458107-5be1a99d4188?w=200&h=200&fit=crop&auto=format&q=70" alt="Tratamentos Capilares" loading="lazy">` },
+      icon:`<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 4c2.8 2.4 2.8 5.6 0 8"/><path d="M9.5 4c2.8 2.4 2.8 5.6 0 8"/><path d="M13.5 4c2.8 2.4 2.8 5.6 0 8"/><path d="M5.5 12v7M9.5 12v7M13.5 12v7"/></svg>` },
   ],
   services: [
     /* ===== FACIAL ===== */
@@ -953,7 +956,7 @@ function renderCategoryNav(){
   const nav = document.getElementById('categoryNav');
   const cards = catalog.categories.map(c => `
     <div class="cat-card ${activeFilter === c.id ? 'active' : ''}" data-cat="${c.id}">
-      <span class="cat-icon">${c.icon}</span>
+      <span class="cat-icon" style="background:${c.color}">${c.icon}</span>
       <span class="cat-label">${c.label}</span>
     </div>`).join('');
   nav.innerHTML = cards;
