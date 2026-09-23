@@ -443,14 +443,14 @@
     scroll-behavior:smooth;
   }
   .grid::-webkit-scrollbar{ display:none; }
-  .grid-arrow{
+  .grid-arrow, .nav-arrow{
     display:flex;
     align-items:center;
     justify-content:center;
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    width:44px; height:44px;
+    width:38px; height:38px;
     border-radius:50%;
     border:1px solid var(--color-border);
     background:#fff;
@@ -460,14 +460,16 @@
     box-shadow:var(--shadow-sm);
     transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
   }
-  .grid-arrow:hover{ box-shadow:var(--shadow-md); background:var(--color-accent); color:#fff; }
-  .grid-arrow.prev{ left:-6px; }
-  .grid-arrow.next{ right:-6px; }
-  .grid-arrow svg{ width:20px; height:20px; }
-  .grid-arrow[disabled]{ opacity:0.35; pointer-events:none; }
-  @media(max-width:900px){
-    .grid-arrow{ display:none; }
+  .grid-arrow{ width:44px; height:44px; }
+  .grid-arrow:hover, .nav-arrow:hover{ box-shadow:var(--shadow-md); background:var(--color-accent); color:#fff; }
+  .grid-arrow.prev, .nav-arrow.prev{ left:2px; }
+  .grid-arrow.next, .nav-arrow.next{ right:2px; }
+  @media(max-width:480px){
+    .grid-arrow.next{ bottom:56px; top:auto; }
   }
+  .grid-arrow svg{ width:20px; height:20px; }
+  .nav-arrow svg{ width:16px; height:16px; }
+  .grid-arrow[disabled], .nav-arrow[disabled]{ opacity:0.3; pointer-events:none; }
   .grid-scrollbar{
     max-width:220px;
     height:4px;
@@ -496,6 +498,7 @@
     .grid-hint{ display:none; }
   }
   .card{
+    position:relative;
     background:#fff;
     border:1px solid var(--color-border);
     border-top:3px solid var(--color-accent);
@@ -507,13 +510,14 @@
     width:253px;
     min-height:305px;
     scroll-snap-align:start;
-    box-shadow:var(--shadow-sm);
+    box-shadow:0 14px 28px -12px rgba(43,36,25,0.35), 0 4px 10px -4px rgba(43,36,25,0.12);
     transition:transform .22s ease, box-shadow .22s ease;
   }
   .card:hover{
     transform:translateY(-4px);
-    box-shadow:var(--shadow-md);
+    box-shadow:0 22px 38px -14px rgba(43,36,25,0.45), 0 6px 14px -6px rgba(43,36,25,0.15);
   }
+  .grid{ padding:14px 6px 30px; }
   .card-body{
     padding:20px 20px 20px;
     display:flex;
@@ -738,6 +742,124 @@
     .whatsapp-float span{ display:none; }
     .whatsapp-float{ padding:14px; }
   }
+
+  /* ============================================================
+     CATEGORIAS — botões clicáveis mais evidentes
+     ============================================================ */
+  .cat-nav-wrap{ position:relative; margin:0 auto; max-width:100%; }
+  .cat-nav{
+    display:flex; flex-wrap:nowrap; gap:14px;
+    overflow-x:auto; overflow-y:hidden;
+    padding:6px 4px;
+    scroll-snap-type:x proximity;
+    -ms-overflow-style:none; scrollbar-width:none;
+  }
+  .cat-nav::-webkit-scrollbar{ display:none; }
+  .cat-btn{
+    display:flex; align-items:center; gap:12px;
+    flex:0 0 230px; width:230px;
+    scroll-snap-align:start;
+    padding:10px 16px 10px 10px;
+    background:#fff; border:1.5px solid var(--color-border); border-radius:999px;
+    box-shadow:0 6px 16px -8px rgba(43,36,25,0.28);
+    cursor:pointer; font-family:'Jost',sans-serif; text-align:left;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .cat-btn:hover{ transform:translateY(-2px); border-color:var(--color-accent); box-shadow:0 12px 24px -10px rgba(43,36,25,0.35); }
+  .cat-btn:focus-visible{ outline:2px solid var(--color-accent); outline-offset:3px; }
+  .cat-btn .cat-icon{ width:46px; height:46px; border-width:2px; box-shadow:none; }
+  .cat-btn .cat-icon svg{ width:22px; height:22px; }
+  .cat-btn-text{ display:flex; flex-direction:column; flex:1; line-height:1.2; }
+  .cat-btn-text strong{ font-size:14px; font-weight:600; color:var(--color-secondary); }
+  .cat-btn-text small{ font-size:11.5px; color:var(--color-muted); margin-top:2px; }
+  .cat-btn-arrow{
+    width:28px; height:28px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--color-surface); color:var(--color-primary);
+    transition:transform .18s ease, background .18s ease, color .18s ease;
+  }
+  .cat-btn-arrow svg{ width:14px; height:14px; }
+  .cat-btn:hover .cat-btn-arrow{ transform:translateX(3px); }
+  .cat-btn.active{ background:var(--color-secondary); border-color:var(--color-secondary); }
+  .cat-btn.active .cat-btn-text strong{ color:#fff; }
+  .cat-btn.active .cat-btn-text small{ color:rgba(255,255,255,0.7); }
+  .cat-btn.active .cat-btn-arrow{ background:var(--color-accent); color:#fff; transform:rotate(90deg); }
+
+  /* Destaque Club do Botox+ */
+  .club-feature{
+    position:relative; display:flex; align-items:center; gap:16px;
+    width:100%; max-width:720px; margin:0 auto 18px; padding:18px 20px;
+    border:none; border-radius:var(--radius-md); cursor:pointer; text-align:left;
+    background:linear-gradient(120deg,#957A4E 0%,#B89B6E 45%,#E8D3AA 100%);
+    color:#fff; font-family:'Jost',sans-serif;
+    box-shadow:0 18px 38px -16px rgba(92,64,25,0.6);
+    transition:transform .2s ease, box-shadow .2s ease; overflow:hidden;
+  }
+  .club-feature::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.35) 50%,transparent 70%);
+    transform:translateX(-100%); animation:clubShine 4.5s ease-in-out infinite;
+  }
+  @keyframes clubShine{ 0%,60%{ transform:translateX(-100%);} 100%{ transform:translateX(100%);} }
+  .club-feature:hover{ transform:translateY(-3px); box-shadow:0 24px 44px -16px rgba(92,64,25,0.7); }
+  .club-feature.active{ outline:3px solid var(--color-secondary); outline-offset:3px; }
+  .club-badge{
+    position:absolute; top:10px; right:12px; z-index:1;
+    font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--color-secondary); color:#F1E3C4; padding:4px 10px; border-radius:999px;
+  }
+  .club-feature-mark{
+    width:58px; height:58px; border-radius:50%; flex-shrink:0; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.22); border:2px solid rgba(255,255,255,0.7);
+    font-family:'Fraunces',serif; font-style:italic; font-size:24px; font-weight:600;
+  }
+  .club-feature-text{ z-index:1; flex:1; }
+  .club-feature-text strong{ display:block; font-family:'Fraunces',serif; font-size:21px; font-weight:600; line-height:1.15; }
+  .club-feature-text span{ display:block; font-size:13px; opacity:.92; margin-top:3px; }
+  .club-feature-cta{
+    z-index:1; flex-shrink:0; font-size:12.5px; font-weight:700;
+    background:#fff; color:#5C4019; padding:9px 14px; border-radius:999px;
+  }
+  @media(max-width:560px){
+    .club-feature{ flex-wrap:wrap; padding:26px 16px 16px; }
+    .club-feature-cta{ width:100%; text-align:center; }
+  }
+
+  /* Intro Club */
+  .club-intro{ display:none; text-align:center; max-width:640px; margin:0 auto; }
+  .club-intro.show{ display:block; }
+  .club-intro .eyebrow{ font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#B89B6E; font-weight:600; }
+  .club-intro h2{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:clamp(28px,5vw,40px); color:#8C7148; margin:8px 0 10px; }
+  .club-intro p{ font-size:14.5px; line-height:1.65; color:var(--color-muted); margin:0 0 14px; }
+  .club-perks{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .club-perks span{ font-size:12.5px; font-weight:600; color:#6B5433; background:#F1E6D2; padding:6px 12px; border-radius:999px; }
+
+  /* Cards do Club */
+  .card.club-card{
+    flex:0 0 280px; width:280px;
+    border-top:none; border:1px solid #E3D3B5;
+    background:linear-gradient(160deg,#FFFDF9 0%,#F4EBDD 100%);
+  }
+  .club-card .club-head{
+    background:linear-gradient(120deg,#957A4E 0%,#C6A97A 60%,#E8D3AA 100%);
+    color:#fff; text-align:center; padding:16px 14px 14px;
+  }
+  .club-head small{ display:block; font-size:10.5px; letter-spacing:.3em; text-transform:uppercase; opacity:.9; }
+  .club-head h3{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:28px; margin:2px 0 0; line-height:1.1; }
+  .club-card .card-body{ text-align:left; padding:16px 18px 18px; }
+  .club-ideal{ font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:#8C7148; text-align:center; margin:0 0 12px; font-weight:600; line-height:1.45; }
+  .club-list{ list-style:none; margin:0 0 16px; padding:0; flex:1; }
+  .club-list li{ position:relative; padding:7px 0 7px 22px; font-size:13px; line-height:1.45; color:var(--color-text); border-bottom:1px solid rgba(140,113,72,0.14); }
+  .club-list li:last-child{ border-bottom:none; }
+  .club-list li::before{ content:"✦"; position:absolute; left:2px; top:7px; color:#B89B6E; font-size:12px; }
+  .club-list li b{ color:#5C4019; }
+  .club-pay{ font-size:13px; line-height:1.55; color:var(--color-text); margin:0 0 10px; }
+  .club-pix{ display:block; background:#fff; border:1px dashed #C6A97A; border-radius:10px; padding:10px; text-align:center; font-size:12.5px; margin-bottom:10px; }
+  .club-pix b{ display:block; font-size:14.5px; color:#5C4019; letter-spacing:.02em; margin-top:2px; }
+  .club-card .btn{ background:linear-gradient(120deg,#957A4E,#B89B6E); align-self:center; }
+  .club-card .btn:hover{ background:var(--color-secondary); }
+  .club-tagline{ text-align:center; font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:#B89B6E; font-weight:600; margin:18px 0 0; }
 </style>
 </head>
 <body>
@@ -780,13 +902,28 @@
 
 <section id="categorias">
   <div class="container">
-    <p class="cat-label-title reveal">Categorias</p>
-    <div class="cat-scroll reveal" id="categoryNav"></div>
+    <p class="cat-label-title reveal">Escolha uma categoria</p>
+    <div class="club-feature-slot" id="clubFeatureSlot"></div>
+    <div class="cat-nav-wrap reveal">
+      <button class="nav-arrow prev" id="catPrev" type="button" aria-label="Categorias anteriores">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="cat-nav" id="categoryNav"></div>
+      <button class="nav-arrow next" id="catNext" type="button" aria-label="Mais categorias">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
 <section id="servicos">
   <div class="container">
+    <div class="club-intro" id="clubIntro">
+      <span class="eyebrow">Porque beleza é cuidado contínuo</span>
+      <h2>Clube do Botox+</h2>
+      <p>O Club Botox+ by Renata Pinheiro nasceu para cuidar de você e promover o seu bem-estar. Os melhores resultados aparecem no cuidado constante — e nós estamos preparadas para entregar o que você merece para se sentir cada vez melhor.</p>
+      <div class="club-perks"><span>+ Beleza</span><span>+ Autoestima</span><span>+ Pele lisinha</span><span>+ Sorriso autoconfiante</span></div>
+    </div>
     <div class="grid-wrap">
       <button class="grid-arrow prev" id="gridPrev" type="button" aria-label="Ver serviços anteriores">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -953,6 +1090,77 @@ function serviceWhatsappLink(service){
   return buildWhatsappLink(`Olá! Vim pelo catálogo da Renata Pinheiro e quero agendar o(a) "${nomeCompleto}". Consigo agendar um horário?`);
 }
 
+
+/* ============================================================
+   CLUB DO BOTOX+ — categoria em destaque
+   ============================================================ */
+const CLUB_ID = "Club";
+const clubCards = [
+  { kind:"plan", name:"Essencial", ideal:"Ideal para quem quer manutenção e prevenção",
+    items:[
+      "<b>2 sessões de Botox</b> no terço superior da face (2 vezes no ano)",
+      "2 sessões de refinamento para aperfeiçoar o resultado",
+      "3% de desconto em todos os tratamentos faciais e corporais",
+      "<b>5% de desconto</b> em toda a linha de dermocosméticos",
+      "Prescrição de skin care nutracêuticos pré e pós botox para potencializar os resultados"
+    ]},
+  { kind:"plan", name:"Premium", ideal:"Ideal para quem quer resultado contínuo e ficar livre de rugas o ano todo",
+    items:[
+      "<b>3 aplicações de Botox</b> no terço superior da face no ano",
+      "3 sessões de refinamento para aperfeiçoar o resultado",
+      "<b>4 sessões de revitalização facial</b>: peeling de Hollywood, fotobiomodulação, renovação celular e plasmaporação",
+      "4% de desconto em todos os tratamentos faciais e corporais",
+      "<b>5% de desconto</b> na linha de dermocosméticos para uso home care",
+      "Prescrição de nutracêuticos pré e pós botox"
+    ]},
+  { kind:"plan", name:"Reface", ideal:"Ideal para quem quer gerenciar o envelhecimento e manter o protocolo anual em dia",
+    items:[
+      "<b>2 sessões de Botox</b> no terço superior da face (2 vezes no ano)",
+      "2 sessões de refinamento para aperfeiçoar o resultado",
+      "<b>4 sessões de revitalização facial</b>: peeling de Hollywood, fotobiomodulação, renovação celular e plasmaporação",
+      "<b>1 aplicação de bioestimulador de colágeno Radiesse</b>",
+      "<b>5% a 8% de desconto</b> na linha de dermocosméticos para uso home care",
+      "Prescrição de nutracêuticos pré e pós botox"
+    ]},
+  { kind:"info", name:"Condições", sub:"do clube", ideal:"Incluso em todos os planos",
+    items:[
+      "2 aplicações no período de 12 meses",
+      "A partir do 4º mês você escolhe a data da próxima aplicação",
+      "5% de desconto na linha de dermocosméticos para uso home care",
+      "Prescrição de skin care nutracêuticos pré e pós botox",
+      "4 sessões de tratamentos faciais, de acordo com as indicações, para gerenciar o envelhecimento"
+    ]},
+  { kind:"pay", name:"Pagamentos", sub:"opções de", ideal:"O programa pode ser adquirido em qualquer período do ano" }
+];
+
+function clubWhatsappLink(planName){
+  const txt = planName
+    ? `Olá! Vim pelo catálogo da Renata Pinheiro e tenho interesse no Clube do Botox+ — Plano ${planName}. Pode me passar mais informações?`
+    : `Olá! Vim pelo catálogo da Renata Pinheiro e quero saber mais sobre o Clube do Botox+.`;
+  return buildWhatsappLink(txt);
+}
+
+function renderClubCards(){
+  return clubCards.map(c => {
+    const head = `<div class="club-head"><small>${c.sub || 'Plano'}</small><h3>${c.name}</h3></div>`;
+    let body;
+    if (c.kind === "pay"){
+      body = `
+        <p class="club-ideal">${c.ideal}</p>
+        <p class="club-pay">O pagamento do clube pode ser feito via <b>PIX, cartão de débito ou cartão de crédito</b> — no cartão em até <b>12x</b>.</p>
+        <span class="club-pix">Chave PIX (CNPJ)<b>31.606.009/0001-74</b></span>
+        <div style="flex:1"></div>
+        <a class="btn" href="${clubWhatsappLink()}" target="_blank" rel="noopener">Quero entrar no clube →</a>`;
+    } else {
+      body = `
+        <p class="club-ideal">${c.ideal}</p>
+        <ul class="club-list">${c.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        <a class="btn" href="${clubWhatsappLink(c.kind==='plan' ? c.name : null)}" target="_blank" rel="noopener">${c.kind==='plan' ? 'Quero este plano →' : 'Tirar dúvidas →'}</a>`;
+    }
+    return `<article class="card club-card">${head}<div class="card-body">${body}</div></article>`;
+  }).join('');
+}
+
 let activeFilter = null;
 
 function categoryData(catId){
@@ -960,22 +1168,37 @@ function categoryData(catId){
 }
 
 function renderCategoryNav(){
+  const slot = document.getElementById('clubFeatureSlot');
   const nav = document.getElementById('categoryNav');
-  const cards = catalog.categories.map(c => `
-    <div class="cat-card ${activeFilter === c.id ? 'active' : ''}" data-cat="${c.id}">
-      <span class="cat-icon" style="background:${c.color}">${c.icon}</span>
-      <span class="cat-label">${c.label}</span>
-    </div>`).join('');
-  nav.innerHTML = cards;
+  const count = id => catalog.services.filter(s => s.category === id).length;
 
-  nav.querySelectorAll('.cat-card').forEach(card => {
-    card.addEventListener('click', () => {
-      activeFilter = card.dataset.cat;
-      renderCategoryNav();
-      renderServices();
-      document.getElementById('servicos').scrollIntoView({behavior:'smooth', block:'start'});
+  slot.innerHTML = `
+    <button type="button" class="club-feature ${activeFilter === CLUB_ID ? 'active' : ''}" data-cat="${CLUB_ID}">
+      <span class="club-badge">Exclusivo</span>
+      <span class="club-feature-mark">B+</span>
+      <span class="club-feature-text"><strong>Clube do Botox+</strong><span>Planos anuais de cuidado contínuo — conheça as vantagens</span></span>
+      <span class="club-feature-cta">Ver planos →</span>
+    </button>`;
+
+  nav.innerHTML = catalog.categories.map(c => `
+    <button type="button" class="cat-btn ${activeFilter === c.id ? 'active' : ''}" data-cat="${c.id}">
+      <span class="cat-icon" style="background:${c.color}">${c.icon}</span>
+      <span class="cat-btn-text"><strong>${c.label}</strong><small>${count(c.id)} tratamentos · toque para ver</small></span>
+      <span class="cat-btn-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+    </button>`).join('');
+
+  [slot, nav].forEach(container => {
+    container.querySelectorAll('[data-cat]').forEach(card => {
+      card.addEventListener('click', () => {
+        activeFilter = card.dataset.cat;
+        renderCategoryNav();
+        renderServices();
+        document.getElementById('servicos').scrollIntoView({behavior:'smooth', block:'start'});
+      });
     });
   });
+
+  setTimeout(updateCatScrollUI, 50);
 }
 
 function renderServices(){
@@ -986,6 +1209,17 @@ function renderServices(){
     ? catalog.services.filter(s => s.category === activeFilter)
     : catalog.services;
 
+  const intro = document.getElementById('clubIntro');
+  if (activeFilter === CLUB_ID){
+    intro.classList.add('show');
+    grid.style.display = 'flex';
+    emptyState.style.display = 'none';
+    grid.innerHTML = renderClubCards();
+    grid.scrollLeft = 0;
+    if (typeof updateGridScrollUI === 'function') setTimeout(updateGridScrollUI, 50);
+    return;
+  }
+  intro.classList.remove('show');
   grid.style.display = 'flex';
   emptyState.style.display = list.length === 0 ? 'block' : 'none';
 
@@ -1025,6 +1259,32 @@ document.getElementById('heroCta').href = genericMsg;
 document.getElementById('headerCta').href = genericMsg;
 document.getElementById('footerWhatsapp').href = `https://wa.me/5535987096476?text=${encodeURIComponent('Olá! Vi o catálogo modelo e quero saber mais sobre a Genix Sistemas Integrativos.')}`;
 document.getElementById('visitWhatsapp').href = genericMsg;
+
+/* navegação por arraste horizontal — categorias */
+const catNavEl = document.getElementById('categoryNav');
+const catPrevBtn = document.getElementById('catPrev');
+const catNextBtn = document.getElementById('catNext');
+
+function updateCatScrollUI(){
+  const maxScroll = catNavEl.scrollWidth - catNavEl.clientWidth;
+  if (maxScroll <= 4){
+    catPrevBtn.style.display = 'none';
+    catNextBtn.style.display = 'none';
+    return;
+  }
+  catPrevBtn.style.display = 'flex';
+  catNextBtn.style.display = 'flex';
+  catPrevBtn.disabled = catNavEl.scrollLeft <= 4;
+  catNextBtn.disabled = catNavEl.scrollLeft >= maxScroll - 4;
+}
+catPrevBtn.addEventListener('click', () => {
+  catNavEl.scrollBy({ left: -catNavEl.clientWidth * 0.8, behavior: 'smooth' });
+});
+catNextBtn.addEventListener('click', () => {
+  catNavEl.scrollBy({ left: catNavEl.clientWidth * 0.8, behavior: 'smooth' });
+});
+catNavEl.addEventListener('scroll', updateCatScrollUI);
+window.addEventListener('resize', updateCatScrollUI);
 
 /* navegação por arraste horizontal — setas + barra de progresso */
 const serviceGridEl = document.getElementById('serviceGrid');
